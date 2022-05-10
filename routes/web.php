@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/', function () {
+    return view('showNotification');
+});
+
+Route::get('getPusher', function (){
+   return view('form_pusher');
+});
+
+Route::get('/pusher', function(Illuminate\Http\Request $request) {
+    event(new App\Events\HelloPusherEvent($request));
+    return redirect('getPusher');
 });
