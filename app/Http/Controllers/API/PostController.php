@@ -17,6 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::addSelect(['user_fullname' => User::select('name')->whereColumn('id', 'posts.user_id')->orderBy('name', 'asc')->get()])->get();
+        return response()->json(['data' => $posts]);
     }
 
     /**
