@@ -5,10 +5,12 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\User;
+use F9Web\ApiResponseHelpers;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    use ApiResponseHelpers;
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +18,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::addSelect(['user_fullname' => User::select('name')->whereColumn('id', 'posts.user_id')->orderBy('name', 'asc')->get()])->get();
-        return response()->json(['data' => $posts]);
+        $posts = Post::addSelect(['user_fullname' => User::select('name')->whereColumn('id', 'posts.user_id')->orderBy('name', 'asc')])->get();
+        return $this->respondWithSuccess(['data' => $posts]);
     }
 
     /**
