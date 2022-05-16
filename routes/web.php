@@ -1,5 +1,6 @@
 <?php
 
+use App\calculateAge;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function (calculateAge $calculateAge) {
+//     $calculateAge->provide_birth_year(1995);
+
+//     return $calculateAge->get_age();
+// });
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/posts', 'UserController@index' );
+
+
+app()->bind('ageCalculator', function() {
+    return new \App\calculateAge();
+});
+
+
